@@ -22,8 +22,14 @@ class BudgetCalculator
      */
     private float $maximumVehicleAmount;
 
+    /**
+     * @var bool
+     */
     public bool $isViable = true;
 
+    /**
+     * @param float $budget
+     */
     public function __construct(
         private readonly float $budget,
     )
@@ -39,6 +45,9 @@ class BudgetCalculator
         }
     }
 
+    /**
+     * @return void
+     */
     public function updateFees(): void
     {
         $this->fees['special'] = round($this->maximumVehicleAmount * 0.02, 2);
@@ -59,11 +68,17 @@ class BudgetCalculator
         };
     }
 
+    /**
+     * @return array
+     */
     public function getData(): array
     {
         return array_merge(['maximumVehicleAmount' => round($this->maximumVehicleAmount, 2)], $this->fees);
     }
 
+    /**
+     * @return $this
+     */
     public function findMaximumVehicleAmount(): self
     {
         do {
@@ -75,6 +90,9 @@ class BudgetCalculator
         return $this;
     }
 
+    /**
+     * @return bool
+     */
     public function isCalculated(): bool
     {
         return round($this->maximumVehicleAmount + array_sum($this->fees), 2) === $this->budget;

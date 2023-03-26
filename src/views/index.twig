@@ -45,16 +45,17 @@
     </tr>
     </thead>
     <tbody>
-    <?PHP foreach ($_SESSION['budgetHistory'] as $history): ?>
+
+    {% for item in budgetHistory %}
         <tr>
-            <td><?= $history['budget'] ?></td>
-            <td><?= $history['maximumVehicleAmount'] ?></td>
-            <td><?= $history['basic'] ?></td>
-            <td><?= $history['special'] ?></td>
-            <td><?= $history['association'] ?></td>
-            <td><?= $history['storage'] ?></td>
+            <td> {{ item['budget'] }} </td>
+            <td> {{ item['maximumVehicleAmount'] }} </td>
+            <td> {{ item['basic'] }} </td>
+            <td> {{ item['special'] }} </td>
+            <td> {{ item['association'] }} </td>
+            <td> {{ item['storage'] }}</td>
         </tr>
-    <?PHP endforeach; ?>
+    {% endfor %}
     </tbody>
 </table>
 </body>

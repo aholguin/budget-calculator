@@ -24,6 +24,15 @@
     </style>
 </head>
 <body>
+<form method="post" action="index.php">
+    <div>
+        <label>Enter the budget’s total amount.</label>
+        <label>
+            <input name="budget" type="number" step="0.01" required>
+        </label>
+        <input type="submit">
+    </div>
+</form>
 <table>
     <thead>
     <tr>
@@ -36,16 +45,16 @@
     </tr>
     </thead>
     <tbody>
-    <?PHP if (isset($data) && isset($budget)): ?>
+    <?PHP foreach ($_SESSION['budgetHistory'] as $history): ?>
         <tr>
-            <td><?= $budget ?></td>
-            <td><?= $data['maximumVehicleAmount'] ?></td>
-            <td><?= $data['basic'] ?></td>
-            <td><?= $data['special'] ?></td>
-            <td><?= $data['association'] ?></td>
-            <td><?= $data['storage'] ?></td>
+            <td><?= $history['budget'] ?></td>
+            <td><?= $history['maximumVehicleAmount'] ?></td>
+            <td><?= $history['basic'] ?></td>
+            <td><?= $history['special'] ?></td>
+            <td><?= $history['association'] ?></td>
+            <td><?= $history['storage'] ?></td>
         </tr>
-    <?PHP endif; ?>
+    <?PHP endforeach; ?>
     </tbody>
 </table>
 </body>

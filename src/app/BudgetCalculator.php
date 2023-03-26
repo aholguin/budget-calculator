@@ -61,13 +61,13 @@ class BudgetCalculator
 
     public function getData(): array
     {
-        return array_merge(['maximumVehicleAmount' => $this->maximumVehicleAmount], $this->fees);
+        return array_merge(['maximumVehicleAmount' => round($this->maximumVehicleAmount, 2)], $this->fees);
     }
 
     public function findMaximumVehicleAmount(): self
     {
         do {
-            $this->maximumVehicleAmount = round($this->maximumVehicleAmount - 0.01, 2);
+            $this->maximumVehicleAmount = $this->maximumVehicleAmount - 0.01;
             $this->updateFees();
 
         } while (!$this->isCalculated());
@@ -77,7 +77,7 @@ class BudgetCalculator
 
     public function isCalculated(): bool
     {
-        return ($this->maximumVehicleAmount + array_sum($this->fees)) === $this->budget;
+        return round($this->maximumVehicleAmount + array_sum($this->fees), 2) === $this->budget;
     }
 
 }

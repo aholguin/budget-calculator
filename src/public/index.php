@@ -4,14 +4,14 @@ session_start();
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../views/');
-$twig = new \Twig\Environment($loader);
+use App\BudgetCalculator;
+use Twig\Environment;
+use Twig\Loader\FilesystemLoader;
+
 
 if (!isset($_SESSION['budgetHistory'])) {
     $_SESSION['budgetHistory'] = [];
 }
-
-use App\BudgetCalculator;
 
 if (isset($_POST['budget'])) {
 
@@ -27,4 +27,6 @@ if (isset($_POST['budget'])) {
     }
 }
 
+$loader = new FilesystemLoader(__DIR__ . '/../views/');
+$twig = new Environment($loader);
 echo $twig->render('index.twig', ['budgetHistory' => $_SESSION['budgetHistory']]);

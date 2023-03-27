@@ -48,12 +48,12 @@
 
     {% for item in budgetHistory %}
         <tr>
-            <td> {{ item['budget'] }} </td>
-            <td> {{ item['maximumVehicleAmount'] }} </td>
-            <td> {{ item['basic'] }} </td>
-            <td> {{ item['special'] }} </td>
-            <td> {{ item['association'] }} </td>
-            <td> {{ item['storage'] }}</td>
+            <td> {{ item['budget'] |number_format (2) }} </td>
+            <td> {{ item['maximumVehicleAmount']|number_format(2) }} </td>
+            <td> {{ item['basic'] |number_format(2) }} </td>
+            <td> {{ item['special']|number_format(2) }} </td>
+            <td> {{ item['association'] |number_format(2) }} </td>
+            <td> {{ item['storage']|number_format (2)}}</td>
         </tr>
     {% endfor %}
     </tbody>

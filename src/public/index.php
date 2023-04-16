@@ -5,6 +5,7 @@ session_start();
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\BudgetCalculator;
+use App\Calculator;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
@@ -14,17 +15,9 @@ if (!isset($_SESSION['budgetHistory'])) {
 }
 
 if (isset($_POST['budget'])) {
-
     $budget = (float)$_POST['budget'];
-
-    $budgetCalculator = new  BudgetCalculator($budget);
-
-    if ($budgetCalculator->isViable) {
-        array_unshift($_SESSION['budgetHistory'], array_merge(
-            ['budget' => $budget],
-            $budgetCalculator->findMaximumVehicleAmount()->getData(),
-        ));
-    }
+    $calculator = new Calculator();
+    $budgetCalculator = new  BudgetCalculator($budget, $calculator);
 }
 
 $loader = new FilesystemLoader(__DIR__ . '/../views/');

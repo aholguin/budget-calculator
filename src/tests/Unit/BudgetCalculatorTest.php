@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\BudgetCalculator;
+use App\Calculator;
 use PHPUnit\Framework\TestCase;
 
 class BudgetCalculatorTest extends TestCase
@@ -14,9 +14,9 @@ class BudgetCalculatorTest extends TestCase
      */
     public function testCanFindMaximumVehicleAmount(): void
     {
-        $budgetCalculator = new  BudgetCalculator(self::BUDGET);
+        $calculator = new Calculator();
 
-        $this->assertEquals(self::BUDGET, array_sum($budgetCalculator->findMaximumVehicleAmount()->getData()));
+        $this->assertEquals(self::BUDGET, array_sum($calculator->calculate(self::BUDGET)));
     }
 
 }

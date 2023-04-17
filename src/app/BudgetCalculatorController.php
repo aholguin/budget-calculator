@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App;
 
-class BudgetCalculator
+class BudgetCalculatorController
 {
     /**
      * @param float $budget

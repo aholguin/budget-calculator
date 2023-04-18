@@ -1,9 +1,8 @@
 <?php
-declare(strict_types=1);
 
 namespace App;
 
-class BudgetCalculatorController
+class BudgetCalculator
 {
     /**
      * @param float $budget
@@ -14,14 +13,14 @@ class BudgetCalculatorController
         private readonly CalculatorMethodInterface $calculator
     )
     {
-        $data = $this->calculator->calculate($this->budget);
-
-        if ($data) {
-            array_unshift($_SESSION['budgetHistory'], array_merge(
-                ['budget' => $budget],
-                $data,
-            ));
-        }
-
     }
+
+    /**
+     * @return array
+     */
+    public function getCalculateData(): array
+    {
+        return $this->calculator->calculate($this->budget);
+    }
+
 }

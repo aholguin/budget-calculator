@@ -10,7 +10,11 @@ DOCKER_APP_CONTAINER_COMMAND="docker exec -it bidcalculator-app"
 
 printMessage "Building docker containers..."
 
-docker compose up -d
+if [ $(docker compose version --short) ]; then
+    docker compose up -d
+else
+    docker-compose up -d
+fi
 
 printMessage "Running composer install..."
 

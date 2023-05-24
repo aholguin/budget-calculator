@@ -3,20 +3,15 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Models\Calculation;
+
 class IndexController
 {
     public function show(): void
     {
+        $calculationModel = new Calculation();
 
-        $pdo = App::db();
-
-        $query = "SELECT budget,vehicle_amount as maximumVehicleAmount,basic,special,association,storage 
-                    FROM calculations 
-                    ORDER BY  id desc";
-
-        $stmt = $pdo->query($query);
-
-        echo View::make('index', $stmt->fetchAll());
+        echo View::make('index', $calculationModel->findAll());
     }
 
     public function calculate(): void
@@ -28,24 +23,18 @@ class IndexController
 
             $calculations = $budgetCalculator->getCalculateData();
 
-            $pdo = App::db();
+            $calculationModel = new Calculation();
 
-            $sth = $pdo->query('SELECT * FROM calculations WHERE budget = ' . $budget);
+            if (!$calculationModel->findByBudget($budget)) {
 
-            if ($sth->rowCount() === 0) {
-                $query = "INSERT INTO calculations (budget,vehicle_amount,basic,special,association,storage)
-                        VALUES (:budget,:vehicle_amount,:basic,:special,:association,:storage);";
-
-                $sth = $pdo->prepare($query);
-                $sth->bindValue(':budget', $budget);
-                $sth->bindValue(':vehicle_amount', $calculations['maximumVehicleAmount']);
-                $sth->bindValue(':basic', $calculations['basic']);
-                $sth->bindValue(':special', $calculations['special']);
-                $sth->bindValue(':association', $calculations['association']);
-                $sth->bindValue(':association', $calculations['association']);
-                $sth->bindValue(':storage', $calculations['storage']);
-
-                $sth->execute();
+                $calculationModel->create(
+                    $budget,
+                    $calculations['maximumVehicleAmount'],
+                    $calculations['basic'],
+                    $calculations['special'],
+                    $calculations['association'],
+                    $calculations['storage'],
+                );
             }
         }
 

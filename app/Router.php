@@ -49,4 +49,9 @@ class Router
 
         return $this;
     }
+
+    public function routes(): array
+    {
+        return $this->routes;
+    }
 }

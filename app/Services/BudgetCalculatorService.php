@@ -9,8 +9,8 @@ use App\Models\Calculation;
 class BudgetCalculatorService
 {
     public function __construct(
-        //protected readonly CalculatorMethodInterface $calculator,
-        protected readonly Calculator $calculator,
+        protected readonly CalculatorMethodInterface $calculator,
+        //protected readonly Calculator $calculator,
         protected Calculation                        $calculationModel
     )
     {

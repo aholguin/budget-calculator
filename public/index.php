@@ -19,6 +19,9 @@ $router->get(route: '/', action: [IndexController::class, 'show']);
 $router->post(route: '/calculate', action: [IndexController::class, 'calculate']);
 
 //calling the route
-(new App($router, ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
+(new App(
+    $container,
+    $router,
+    ['uri' => $_SERVER['REQUEST_URI'], 'method' => $_SERVER['REQUEST_METHOD']],
     new Config()
 ))->run();

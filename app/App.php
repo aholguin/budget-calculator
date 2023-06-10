@@ -8,9 +8,17 @@ class App
 {
     private static DB $db;
 
-    public function __construct(private readonly Router $router, private readonly array $request, Config $config)
+    public function __construct(private readonly Container $container,
+                                readonly Router            $router,
+                                private readonly array     $request, Config $config
+    )
     {
         static::$db = new DB($config->db ?? []);
+
+        $this->container->set(
+            CalculatorMethodInterface::class,
+            Calculator::class
+        );
 
     }
 

@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App;
 
 use App\Models\Calculation;
+use App\Services\BudgetCalculatorService;
+use App\Services\StorageCalculations;
 
 class IndexController
 {
@@ -17,25 +19,11 @@ class IndexController
     public function calculate(): void
     {
         if (isset($_POST['budget'])) {
-            $budget = (float)$_POST['budget'];
-            $calculator = new Calculator();
-            $budgetCalculator = new  BudgetCalculator($budget, $calculator);
+            /*$calculator = new Calculator();
+            $storage = new Calculation();
+            (new BudgetCalculatorService($calculator, $storage))->process((float)$_POST['budget']);*/
 
-            $calculations = $budgetCalculator->getCalculateData();
-
-            $calculationModel = new Calculation();
-
-            if (!$calculationModel->findByBudget($budget)) {
-
-                $calculationModel->create(
-                    $budget,
-                    $calculations['maximumVehicleAmount'],
-                    $calculations['basic'],
-                    $calculations['special'],
-                    $calculations['association'],
-                    $calculations['storage'],
-                );
-            }
+            (new Container())->get(BudgetCalculatorService::class)->process((float)$_POST['budget']);
         }
 
         $this->show();

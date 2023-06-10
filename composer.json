@@ -10,6 +10,7 @@
     "require": {
         "twig/twig": "^3.0",
         "vlucas/phpdotenv": "^5.5",
-      "ext-pdo": "*"
+      "ext-pdo": "*",
+        "psr/container": "^2.0"
     }
 }

@@ -8,6 +8,10 @@ class Router
 {
     private array $routes = [];
 
+    public function __construct(private readonly Container $container)
+    {
+    }
+
     public function get(string $route, array $action): self
     {
         return $this->register('GET', $route, $action);
@@ -33,7 +37,7 @@ class Router
         [$class, $method] = $action;
 
         if (class_exists($class)) {
-            $class = new $class();
+            $class = $this->container->get($class);
 
             if (method_exists($class, $method)) {
                 return call_user_func_array([$class, $method], []);

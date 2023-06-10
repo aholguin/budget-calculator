@@ -11,7 +11,8 @@ use App\Config;
 use App\IndexController;
 use App\Router;
 
-$router = new Router();
+$container = new \App\Container();
+$router = new Router($container);
 
 //registering Routes
 $router->get(route: '/', action: [IndexController::class, 'show']);

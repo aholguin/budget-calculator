@@ -9,6 +9,11 @@ use App\Services\StorageCalculations;
 
 class IndexController
 {
+
+    public function __construct(private BudgetCalculatorService $budgetCalculatorService)
+    {
+    }
+
     public function show(): void
     {
         $calculationModel = new Calculation();
@@ -19,11 +24,8 @@ class IndexController
     public function calculate(): void
     {
         if (isset($_POST['budget'])) {
-            /*$calculator = new Calculator();
-            $storage = new Calculation();
-            (new BudgetCalculatorService($calculator, $storage))->process((float)$_POST['budget']);*/
 
-            (new Container())->get(BudgetCalculatorService::class)->process((float)$_POST['budget']);
+            $this->budgetCalculatorService->process((float)$_POST['budget']);
         }
 
         $this->show();

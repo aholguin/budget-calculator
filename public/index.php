@@ -15,8 +15,12 @@ $container = new \App\Container();
 $router = new Router($container);
 
 //registering Routes
-$router->get(route: '/', action: [IndexController::class, 'show']);
-$router->post(route: '/calculate', action: [IndexController::class, 'calculate']);
+try {
+    $router->registerRoutesFromControllerAttributes([
+        IndexController::class
+    ]);
+} catch (ReflectionException $e) {
+}
 
 //calling the route
 (new App(

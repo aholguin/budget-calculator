@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Attributes\Route;
 use App\Models\Calculation;
 use App\Services\BudgetCalculatorService;
-use App\Services\StorageCalculations;
 
 class IndexController
 {
@@ -14,6 +14,7 @@ class IndexController
     {
     }
 
+    #[Route('/')]
     public function show(): void
     {
         $calculationModel = new Calculation();
@@ -21,6 +22,7 @@ class IndexController
         echo View::make('index', $calculationModel->findAll());
     }
 
+    #[Route('/calculate', 'POST')]
     public function calculate(): void
     {
         if (isset($_POST['budget'])) {
